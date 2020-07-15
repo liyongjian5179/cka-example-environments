@@ -5,12 +5,44 @@
 apt-get remove -y docker.io kubelet kubeadm kubectl kubernetes-cni
 apt-get autoremove -y
 systemctl daemon-reload
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
-deb http://apt.kubernetes.io/ kubernetes-xenial main
+
+# 备份旧的源
+sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
+# 写入阿里源
+sudo cat > /etc/apt/sources.list <<EOF
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 EOF
-apt-get update
-apt-get install -y docker.io=18.09.7-0ubuntu1~18.04.4 kubelet=1.18.2-00 kubeadm=1.18.2-00 kubectl=1.18.2-00 kubernetes-cni
+
+# 安装必要的一些系统工具
+sudo apt-get update
+sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+
+# k8s
+sudo cat > /etc/apt/sources.list.d/kubernetes.list <<EOF
+deb https://mirrors.aliyun.com/kubernetes/apt kubernetes-xenial main
+EOF
+# 安装GPG证书
+curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add -
+
+# Docker-ce
+# 安装GPG证书
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+# 写入软件源信息
+sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
+
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli  kubelet=1.18.2-00 kubeadm=1.18.2-00 kubectl=1.18.2-00 kubernetes-cni containerd.io
+#apt-get install -y docker.io=18.09.7-0ubuntu1~18.04.4 kubelet=1.18.2-00 kubeadm=1.18.2-00 kubectl=1.18.2-00 kubernetes-cni
+
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
