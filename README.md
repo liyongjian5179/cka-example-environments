@@ -3,7 +3,7 @@
 ## 下载 vagrant 镜像
 
 ```bash
-vagrant box add https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cloud-images/bionic/20200702/bionic-server-cloudimg-amd64-vagrant.box --name ubuntu/bionic64
+vagrant box add https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cloud-images/bionic/current/bionic-server-cloudimg-amd64-vagrant.box --name ubuntu/bionic64
 ```
 
 ## 适配中国国情
