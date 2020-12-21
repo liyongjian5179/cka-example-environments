@@ -10,10 +10,8 @@ vagrant box add https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cloud-images/bionic/
 
 已添加阿里源，同时 `k8s` 使用阿里云的国内镜像
 
-
-## challenges:
-
-https://levelup.gitconnected.com/kubernetes-cka-example-questions-practical-challenge-86318d85b4d?source=friends_link&sk=cb63eb0edd1210851f01df24b2142db2
+## k8s 版本
+已更新至 `v1.20.1`
 
 
 ## setup and run
@@ -21,7 +19,7 @@ You will start a two node cluster on your machine, one master and one worker. Fo
 
 
 ```
-git clone git@github.com:wuestkamp/cka-example-environments.git
+git clone git@github.com:liyongjian5179/cka-example-environments.git
 cd cka-example-environments/cluster1
 ./up.sh
 
@@ -34,5 +32,3 @@ You should be connected as `root@cluster1-master1`. You can connect to other wor
 If you want to destroy the environment again run `./down.sh`. You should destroy the environment after usage so no more resources are used!
 
 
-# more
-More challenges in a completely simulated CKA environment on https:/killer.sh
