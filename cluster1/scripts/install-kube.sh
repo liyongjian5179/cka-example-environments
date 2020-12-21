@@ -40,8 +40,7 @@ curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key 
 sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
 
 sudo apt-get update
-sudo apt-get install -y docker-ce docker-ce-cli  kubelet=1.18.2-00 kubeadm=1.18.2-00 kubectl=1.18.2-00 kubernetes-cni containerd.io
-#apt-get install -y docker.io=18.09.7-0ubuntu1~18.04.4 kubelet=1.18.2-00 kubeadm=1.18.2-00 kubectl=1.18.2-00 kubernetes-cni
+sudo apt-get install -y docker-ce=5:19.03.14~3-0~ubuntu-bionic docker-ce-cli=5:19.03.14~3-0~ubuntu-bionic  kubelet=1.20.1-00 kubeadm=1.20.1-00 kubectl=1.20.1-00 kubernetes-cni containerd.io
 
 cat > /etc/docker/daemon.json <<EOF
 {
